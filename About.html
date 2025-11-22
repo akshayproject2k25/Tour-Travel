@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Travel - Holiday Booking Gallery</title>
+    
+    <!-- Load Bootstrap CSS --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Load Bootstrap Icons --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Load Font Awesome Icons (needed for fas classes) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ======== Variables & Basic Setup ======== */
+        :root {
+            --brand-primary: #ff9900; /* Main orange color */
+            --brand-secondary: #fca311; /* A similar orange for accents */
+            --dark-blue: #0d1b2a; /* Dark text color */
+            --light-gray: #f8f9fa; /* Light background for forms */
+            --brand-teal: #004d40;
+            --brand-light-red: #ff6666; /* Defined Light Red for H4 titles */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        /* ======== Custom Button ======== */
+        .btn-brand-primary {
+            background-color: var(--brand-primary);
+            color: white;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-brand-primary:hover {
+            background-color: #e68a00; /* Darker orange on hover */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ======== Navbar ======== */
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: #000000 !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #555;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            color: var(--brand-primary);
+        }
+
+        /* ======== Hero/Heading Styling ======== */
+        .hero-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--dark-blue);
+        }
+        /* ======== Hero Section Styling ========*/
+        .about-hero {
+            height: 400px;
+            background: url("https://static.vecteezy.com/system/resources/thumbnails/070/592/545/small/two-hikers-trekking-a-sunlit-trail-into-a-vast-hazy-mountainscape-photo.jpg");
+            background-color: var(--brand-teal); /* Solid teal background */
+            background-size: cover;
+            background-position: center center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Fixed syntax error and used defined variable */
+        .discover-text {
+            color: var(--brand-primary); 
+            font-weight: 600;
+        } /* <-- Fixed syntax error (missing closing brace) */
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-blue); /* Used defined variable */
+            margin-bottom: 20px;
+        }
+        /* Example using clamp() for responsive scaling */
+        .section-title {
+            font-size: clamp(1.5rem, 5vw, 2.5rem); /* Min size 1.5rem, prefers 5vw, max size 2.5rem */
+            font-weight: 700;
+            color: var(--dark-blue); /* Used defined variable */
+            margin-bottom: 20px;
+        }
+
+        .mission-section .card {
+            border-top: 4px solid var(--brand-primary); /* Used defined variable */
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .mission-section .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Custom class for the requested light red color */
+        .text-light-red {
+            color: var(--brand-light-red) !important;
+        }
+
+        /* Adjusting icon colors for context */
+        .mission-section .fa-bullseye { color: #3498db !important; } /* Blue for Mission */
+        .mission-section .fa-heart { color: #e74c3c !important; }      /* Red for Vision */
+        .mission-section .fa-handshake { color: #2ecc71 !important; } /* Green for Commitment */
+
+
+        .stats-section .stat-number {
+            color: var(--brand-primary); /* Used defined variable */
+            line-height: 1.1;
+        }
+
+        .stats-section .stat-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .stats-section .stat-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em; /* Added for improved visual separation */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">
+                    <i class="bi bi-geo-alt-fill"></i> Tour Travel
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="List.html">Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gallery.html">Gallery</a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div id="authArea">
+                        <a href="login.html" class="btn btn-brand-primary" id="authButton">Sign In/Register</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <header class="about-hero text-center py-5">
+        <div class="container">
+            <p class="text-uppercase discover-text">Discover Our Journey</p>
+            <h1 class="display-6 fw-bold">We Make Travel Easy and Memorable</h1>
+        </div>
+    </header>
+    
+    <section class="story-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <!-- Image with onerror for fallback -->
+                    <img src="https://www.shutterstock.com/image-photo/indian-cameleers-camel-drivers-bedouin-600nw-2600317721.jpg" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/004d40/ffffff?text=Desert+Exploration';" 
+                         class="img-fluid rounded-3 shadow-lg" alt="Our Story Image">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title">Our Story</h2>
+                    <p class="lead text-primary fw-bold">Born from a passion for exploration.</p>
+                    <p class="text-muted">
+                        TOUR TRAVEL was born in 2024 out of a shared frustration and a clear vision. We observed the holiday rental market was often a labyrinth: travelers were endlessly searching, struggling to verify property quality, and feeling disconnected from truly unique local experiences.
+                    </p>
+                    <p class="text-muted">
+                        Our simple goal was to solve this: to simplify the holiday rental process and connect travelers instantly with hand-picked, verified, and genuinely unforgettable places to stay. We set out to build the platform that bridges the divide between dreaming of a perfect holiday and confidently securing it.
+                    </p>
+                    <p class="text-muted">
+                        From our humble start listing just a handful of trusted local villas, we have grown exponentially, fueled by the loyalty of our travelers. Today, we are a trusted international platform helping millions find their most suitable holiday—turning stressful searches into effortless discoveries and turning generic trips into cherished memories.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="mission-section py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title mb-5">Our Core Values</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 h-100 shadow-sm border-0">
+                        <i class="fas fa-bullseye fa-3x text-primary mb-3"></i>
+                        <!-- Changed class from text-primary to text-light-red -->
+                        <h4 class="lead text-light-red fw-bold">Mission</h4>
+                        <p class="text-muted">To Inspire: To open your eyes to the beauty, culture, and excitement of the world.To Connect: To link you with authentic local experiences and people, moving beyond the tourist facade.To Care: To provide seamless, stress-free planning, and reliable support from the moment you dream of a trip to the moment you return home.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 h-100 shadow-sm border-0">
+                        <i class="fas fa-heart fa-3x text-warning mb-3"></i>
+                        <!-- Changed class from text-primary to text-light-red -->
+                        <h4 class="lead text-light-red fw-bold">Vision</h4>
+                        <p class="text-muted">To be the catalyst that transforms standard vacations into deeply personal, life-changing adventures. To be the world's most trusted and seamless platform for discovering and booking authentic global experiences.To inspire a global community of travelers who explore the world responsibly, respectfully, and without boundaries.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 h-100 shadow-sm border-0">
+                        <i class="fas fa-handshake fa-3x text-success mb-3"></i>
+                        <!-- Changed class from text-primary to text-light-red -->
+                        <h4 class="lead text-light-red fw-bold">Commitment</h4>
+                        <p class="text-muted">We rigorously vet every partner, destination, and activity to ensure your travel experience meets the highest standards of safety, authenticity, and excellence.We are committed to offering the best possible value with clear, upfront pricing and no hidden fees. Honesty is the foundation of every journey we plan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="stats-section py-5">
+        <div class="container">
+            <h2 class="text-center section-title mb-5">By The Numbers</h2>
+            <div class="row text-center">
+                <div class="col-md-3 mb-4">
+                    <div class="stat-box p-3">
+                        <i class="fas fa-home fa-3x text-primary mb-2"></i>
+                        <div class="stat-number fw-bold display-4">120K+</div>
+                        <p class="stat-label text-muted">Villas Listed</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-box p-3">
+                        <i class="fas fa-users fa-3x text-primary mb-2"></i>
+                        <div class="stat-number fw-bold display-4">2M+</div>
+                        <p class="stat-label text-muted">Happy Travelers</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-box p-3">
+                        <i class="fas fa-globe fa-3x text-primary mb-2"></i>
+                        <div class="stat-number fw-bold display-4">75+</div>
+                        <p class="stat-label text-muted">Countries Served</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-box p-3">
+                        <i class="fas fa-star fa-3x text-primary mb-2"></i>
+                        <div class="stat-number fw-bold display-4">4.8</div>
+                        <p class="stat-label text-muted">Average Rating</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 Tour Travel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Simple message box function, replaces alert() -->
+    <div id="message-box" style="position: fixed; top: 10px; right: 10px; background: #333; color: white; padding: 10px 20px; border-radius: 8px; z-index: 1050; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2);"></div>
+
+    <script>
+        // Placeholder function for message display
+        function showMessage(title, message) {
+            const messageBox = document.getElementById('message-box');
+            messageBox.innerHTML = `<strong>${title}:</strong> ${message}`;
+            messageBox.style.display = 'block';
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script>
+function updateAuthUI() {
+    const isLoggedIn = localStorage.getItem("userLoggedIn");
+    const authArea = document.getElementById("authArea");
+
+    if (isLoggedIn === "true") {
+        authArea.innerHTML = `
+            <div class="dropdown">
+                <button class="btn btn-brand-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    My Account
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="account.html">Dashboard</a></li>
+                    <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        `;
+
+        // Logout Listener
+        setTimeout(() => {
+            const logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("userLoggedIn");
+                    window.location.reload(); // Refresh page to update UI
+                });
+            }
+        }, 100);
+
+    } else {
+        authArea.innerHTML = `
+            <a href="login.html" class="btn btn-brand-primary" id="authButton">
+                Sign In/Register
+            </a>
+        `;
+    }
+}
+
+// Run on page load
+updateAuthUI();
+</script>
+</body>
+</html>

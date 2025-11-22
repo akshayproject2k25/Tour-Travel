@@ -1,0 +1,266 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ======== Variables & Basic Setup ======== */
+:root {
+    --brand-primary: #ff9900; /* Main orange color from the screenshot */
+    --brand-secondary: #fca311; /* A similar orange for accents */
+    --dark-blue: #0d1b2a; /* Dark text color */
+    --light-gray: #f8f9fa; /* Light background for forms */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* ======== Custom Button ======== */
+.btn-brand-primary {
+    background-color: var(--brand-primary);
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-brand-primary:hover {
+    background-color: #e68a00; /* Darker orange on hover */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ======== Navbar ======== */
+.navbar-brand {
+    font-size: 1.5rem;
+    color: var(--dark-blue) !important; /* Overriding text-primary */
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #555;
+    margin: 0 0.5rem;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: var(--brand-primary);
+}
+
+/* ======== Hero Section ======== */
+.hero-section {
+    padding: 4rem 0;
+}
+
+.hero-heading {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--dark-blue);
+}
+
+.hero-heading span {
+    color: var(--brand-primary);
+}
+
+.text-brand-secondary {
+    color: var(--brand-secondary);
+}
+
+.hero-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 1.5rem; /* More rounded corners */
+}
+
+/* ======== Booking Form Section ======== */
+.booking-form-section {
+    position: relative;
+    margin-top: -60px; /* This pulls the form up */
+    z-index: 10;
+}
+
+.booking-card {
+    border-radius: 1rem !important; /* Overriding default */
+}
+.card-img-top {
+            height: 350px;
+            object-fit: cover;
+        }
+
+/* Form Tabs */
+.booking-card .nav-tabs {
+    border-bottom: 0;
+}
+
+.booking-card .nav-tabs .nav-link {
+    border: 0;
+    color: #6c757d;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px 8px 0 0;
+}
+
+.booking-card .nav-tabs .nav-link.active {
+    color: var(--brand-primary);
+    background-color: var(--light-gray);
+    border-bottom: 3px solid var(--brand-primary);
+}
+
+/* Form Inputs */
+.booking-card .form-control,
+.booking-card .form-select {
+    background-color: var(--light-gray);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+}
+
+.booking-card .form-control:focus,
+.booking-card .form-select:focus {
+    background-color: var(--light-gray);
+    box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.25); /* Focus ring in brand color */
+}
+
+/* Search Button */
+.btn-icon {
+    padding: 0.75rem;
+    width: 100%;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+@media (min-width: 992px) {
+    .btn-icon {
+        padding: 0.75rem; /* Keep it square */
+        width: auto;
+    }
+}
+
+
+/* ======== Featured Villas Section ======== */
+.featured-villas-section {
+    background-color: #fcfcfc; /* Very light gray bg */
+    padding-top: 8rem; /* Add padding to account for the overlapping form */
+}
+
+.featured-villas-section .badge {
+    background-color: #fff3e0 !important; /* Light orange */
+    color: var(--brand-primary) !important;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.featured-villas-section h2 {
+    color: var(--dark-blue);
+}
+
+.featured-villas-section .card {
+    transition: all 0.3s ease;
+}
+
+.featured-villas-section .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.featured-villas-section .card-img-top {
+    height: 230px; /* Fixed height for all images */
+    object-fit: cover; /* Ensures images cover the area without distortion */
+}
+
+.text-brand-primary {
+    color: var(--brand-primary);
+}
+/*contact form */
+
+.contact-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.contact-form h2 {
+    margin-top: 0;
+}
+.contact-form input,
+.contact-form textarea {
+    width: 100% !important;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.contact-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.contact-form button:hover {
+    background-color: #0056b3;
+
+    .booking-form-section {
+            margin-top: -5rem; /* Pull the booking card up into the hero section */
+            position: relative;
+            z-index: 10;
+        }
+        .booking-card input, .booking-card select {
+            border-radius: 0.5rem;
+            border-color: #e5e7eb;
+            padding: 0.75rem 1rem;
+        }
+        .booking-card .nav-link {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem 0.75rem 0 0;
+            margin-right: 0.25rem;
+            font-weight: 600;
+            color: #4b5563; /* Gray 600 */
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .booking-card .nav-link.active {
+            color: var(--color-brand-primary);
+            border-color: var(--color-brand-primary);
+            background-color: #ffffff;
+        }
+.tour-card-img-wrapper {
+            position: relative;
+            height: 200px; /* Fixed height for image area */
+            overflow: hidden;
+        }
+        .tour-card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* rounded-full */
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 600; /* font-semibold */
+            color: white;
+            background-color: #ef4444; /* bg-red-500 */
+        }
+        .card-footer-custom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6; /* border-gray-100 */
+            margin-top: 1rem;
+        }
+        .card-price {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 700; /* font-bold */
+            color: var(--color-brand-primary);
+        }

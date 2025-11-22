@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Travel - Contact Us</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Shared Styles from Listing Page */
+        :root {
+            --accent-color: #fca311; /* The vibrant orange/yellow for highlights */
+            --text-dark: #333;
+            --text-light: #6c757d;
+            --background-light: #f8f9fa;
+            --brand-primary: #ff9900; /* Main orange color */
+            --brand-secondary: #fca311; /* A similar orange for accents */
+            --dark-blue: #0d1b2a; /* Dark text color */
+            --light-gray: #f8f9fa; /* Light background for forms */
+            --brand-teal: #004d40; 
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        .custom-container {
+            max-width: 1200px;
+        }
+
+        /* ======== Custom Button ======== */
+        .btn-brand-primary {
+            background-color: var(--brand-primary);
+            color: white;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-brand-primary:hover {
+            background-color: #e68a00; /* Darker orange on hover */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /*navbar style*/
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: #000000 !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #555;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            color: var(--brand-primary);
+        }
+        /* ======== Hero Section Styling ========*/
+        .about-hero {
+            height: 400px;
+            background-color: var(--brand-teal); /* Solid teal background */
+            background-size: cover;
+            background-position: center center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        
+        /* --- Contact Page Specific Styles --- */
+        
+        .contact-hero {
+            background-color: white;
+            padding: 60px 0;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .contact-subtitle {
+            color: var(--text-light);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 15px auto 0;
+        }
+
+        /* Information Section (Left Column) */
+        .info-card-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 5px;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .info-details p {
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .info-details .label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .info-details .value {
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+        
+        /* Contact Form Section (Right Column) */
+        .contact-form-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-heading {
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.25rem rgba(252, 163, 17, 0.25);
+        }
+
+        .submit-btn {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+            font-weight: bold;
+            padding: 10px 30px;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #e0940b;
+            border-color: #e0940b;
+        }
+        
+        /* Map Section */
+        .map-section {
+            padding: 50px 0;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">
+                    <i class="bi bi-geo-alt-fill"></i> Tour Travel
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="About.html">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="List.html">Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gallery.html">Gallery</a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                    <!-- Updated onclick to use custom message handler -->
+                    <div id="authArea">
+                        <a href="login.html" class="btn btn-brand-primary" id="authButton">Sign In/Register</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="contact-hero text-center">
+        <div class="container custom-container">
+            <h1 class="contact-title">Get in Touch with Us</h1>
+            <p class="contact-subtitle">
+                We're here to help you plan your perfect holiday. Fill out the form below or use our contact details to reach out.
+            </p>
+        </div>
+    </section>
+
+    <section class="contact-content container custom-container my-5">
+        <div class="row g-5">
+            <div class="col-lg-5">
+                <h2 class="form-heading">Contact Information</h2>
+                <div class="info-card-container">
+                    
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="info-details">
+                            <p class="label">Our Location</p>
+                            <p class="value">TOUR TRAVEL, PALAKKAD, KERALA, INDIA</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div class="info-details">
+                            <p class="label">Phone Number</p>
+                            <p class="value">+91 86 9574 6823</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="info-details">
+                            <p class="label">Email Address</p>
+                            <p class="value">support_team@tourtravel.com</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="info-details">
+                            <p class="label">Working Hours</p>
+                            <p class="value">Mon - Fri: 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <!-- Placeholder for the success message -->
+                <div id="message-container" class="mb-4">
+                    <!-- Message content will be injected here -->
+                </div>
+                
+                <div class="contact-form-container">
+                    <h2 class="form-heading">Send Us a Message</h2>
+                    <!-- Added onsubmit handler to prevent page reload and process message -->
+                    <form id="contact-form" onsubmit="return handleFormSubmission(event)">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject / Service Inquiry</label>
+                            <input type="text" class="form-control" id="subject" placeholder="e.g., Villa Booking, General Inquiry" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea class="form-control" id="message" rows="4" placeholder="Type your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 Tour Travel. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Custom Script for Form Handling and Messages -->
+    <script>
+        const form = document.getElementById('contact-form');
+        const messageContainer = document.getElementById('message-container');
+
+        /**
+         * Displays a Bootstrap alert message in the designated container.
+         * @param {string} message - The message content.
+         * @param {string} type - The alert type (success, info, danger, warning).
+         */
+        function showMessage(message, type = 'info') {
+            // Remove any existing messages
+            messageContainer.innerHTML = '';
+            
+            const alertHtml = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    <i class="fas fa-info-circle me-2"></i> <!-- Default icon, changed in handleFormSubmission -->
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+            
+            messageContainer.innerHTML = alertHtml;
+
+            // Optional: Auto-hide the alert after 5 seconds
+            setTimeout(() => {
+                const alertElement = messageContainer.querySelector('.alert');
+                if (alertElement) {
+                    // Use Bootstrap's method to gracefully close and remove the alert
+                    const alertInstance = bootstrap.Alert.getOrCreateInstance(alertElement);
+                    alertInstance.dispose(); 
+                    // Clear container after a small delay to ensure CSS transition finishes
+                    setTimeout(() => messageContainer.innerHTML = '', 300);
+                }
+            }, 5000);
+        }
+
+        /**
+         * Handles the form submission logic.
+         * 1. Prevents default browser submission.
+         * 2. Simulates successful message sending.
+         * 3. Clears the form and displays a success message.
+         * @param {Event} event - The form submission event.
+         */
+        function handleFormSubmission(event) {
+            event.preventDefault(); // Stop the page from reloading
+
+            // 1. (Mock) Data Processing/Submission happens here...
+            console.log("Form data submitted. Simulating server response...");
+
+            // 2. Display success message
+            // I'm replacing the entire HTML structure here to ensure the success icon is correct
+            messageContainer.innerHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    Your message has been **sent successfully**! We will get back to you shortly.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+
+            // Optional: Auto-hide the success alert after 5 seconds
+            setTimeout(() => {
+                const alertElement = messageContainer.querySelector('.alert');
+                if (alertElement) {
+                    const alertInstance = bootstrap.Alert.getOrCreateInstance(alertElement);
+                    alertInstance.dispose(); 
+                    setTimeout(() => messageContainer.innerHTML = '', 300);
+                }
+            }, 5000);
+
+
+            // 3. Clear the form fields
+            form.reset();
+            
+            return false;
+        }
+
+        /**
+         * Handles the Sign In button click using a custom fixed notification
+         * as a non-intrusive alternative to alert().
+         * @param {string} message - The message to display.
+         */
+        function handleNavClick(message) {
+            // This displays a temporary fixed message for navigation clicks
+            const existingAlert = document.getElementById('custom-fixed-alert');
+            if (existingAlert) existingAlert.remove();
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'custom-fixed-alert';
+            alertDiv.className = 'fixed-alert-style';
+            alertDiv.innerHTML = `
+                <div class="alert alert-info py-2 px-4 shadow-lg text-center rounded-lg" role="alert" style="margin: 0; display: inline-block;">
+                    ${message}
+                </div>
+            `;
+
+            document.body.appendChild(alertDiv);
+            
+            // Apply fixed positioning for the generic message
+            alertDiv.style.cssText = `
+                position: fixed; 
+                top: 20px; 
+                left: 50%; 
+                transform: translateX(-50%); 
+                z-index: 1050;
+                opacity: 0;
+                transition: opacity 0.5s;
+            `;
+            
+            // Fade in and then auto-hide
+            setTimeout(() => { alertDiv.style.opacity = '1'; }, 50);
+            setTimeout(() => {
+                alertDiv.style.opacity = '0';
+                setTimeout(() => alertDiv.remove(), 500);
+            }, 3000);
+        }
+    </script>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+function updateAuthUI() {
+    const isLoggedIn = localStorage.getItem("userLoggedIn");
+    const authArea = document.getElementById("authArea");
+
+    if (isLoggedIn === "true") {
+        authArea.innerHTML = `
+            <div class="dropdown">
+                <button class="btn btn-brand-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    My Account
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="account.html">Dashboard</a></li>
+                    <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        `;
+
+        // Logout Listener
+        setTimeout(() => {
+            const logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("userLoggedIn");
+                    window.location.reload(); // Refresh page to update UI
+                });
+            }
+        }, 100);
+
+    } else {
+        authArea.innerHTML = `
+            <a href="login.html" class="btn btn-brand-primary" id="authButton">
+                Sign In/Register
+            </a>
+        `;
+    }
+}
+
+// Run on page load
+updateAuthUI();
+</script>
+</body>
+</html>

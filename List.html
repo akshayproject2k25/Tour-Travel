@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Travel - Holiday Booking</title>
+    
+    <!-- Load Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Load Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    
+    <style>
+
+        /* Import Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        /* ======== Variables & Basic Setup ======== */
+        :root {
+            --brand-primary: #ff9900; /* Main orange color */
+            --brand-secondary: #fca311; /* A similar orange for accents */
+            --dark-blue: #0d1b2a; /* Dark text color */
+            --light-gray: #f8f9fa; /* Light background for forms */
+            --brand-teal: #004d40; /* New teal color for the hero banner */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        /* ======== Custom Button ======== */
+        .btn-brand-primary {
+            background-color: var(--brand-primary);
+            color: white;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-brand-primary:hover {
+            background-color: #e68a00; /* Darker orange on hover */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modal specific styling for price */
+        .modal .card-price {
+            color: var(--brand-primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        /* Style for the image inside the modal body for better appearance */
+        .modal-body img {
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+
+        /* ======== Navbar ======== */
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: #000000 !important;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: #555;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link.active,
+
+        .nav-link:hover {
+            color: var(--brand-primary);
+        }
+
+        /* ======== Hero Section ======== */
+        .listing-hero {
+            height: 400px;
+            background-size: cover;
+            background-position: center center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            background: linear-gradient(rgba(13, 27, 42, 0.7), rgba(13, 27, 42, 0.5)), url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=2021&q=80');
+        }
+
+        /* ======== Filter/Search Form Styling ======== */
+        .filter-form-container {
+            background-color: var(--light-gray);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-top: -6rem; /* Pull up over the hero section */
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-control, .form-select {
+            border-radius: 8px;
+            height: 50px;
+            border-color: #ddd;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 0.25rem rgba(255, 153, 0, 0.25);
+        }
+
+
+        /* ======== Tour Card Styling ======== */
+        .tour-card {
+            border: 1px solid #eee;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
+            height: 100%; /* Important for grid alignment */
+        }
+
+        .tour-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .tour-card img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .tour-card:hover img {
+            transform: scale(1.05);
+        }
+
+
+        .card-title {
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .card-meta {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .card-price {
+            color: var(--brand-primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .card-badge {
+            background-color: var(--brand-secondary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 5;
+        }
+        
+        /* ======== Pagination Styling ======== */
+        .pagination .page-link {
+            color: var(--dark-blue);
+            border: none;
+            margin: 0 5px;
+            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .pagination .page-item.active .page-link {
+            background-color: var(--brand-primary);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 153, 0, 0.3);
+        }
+        
+        .pagination .page-link:hover:not(.active) {
+            background-color: #eee;
+            color: var(--brand-primary);
+        }
+        
+        .pagination .page-item.disabled .page-link {
+            color: #ccc;
+            background-color: transparent;
+            cursor: not-allowed;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: var(--dark-blue);
+            color: #ccc;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Dummy function for Sign In/Register button click -->
+    <script>
+        function toggleAuth(event) {
+            event.preventDefault();
+            console.log("Authentication button clicked.");
+        }
+    </script>
+    
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">
+                    <i class="bi bi-geo-alt-fill"></i> Tour Travel
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link " href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="About.html">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gallery.html">Gallery</a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div id="authArea">
+                        <a href="login.html" class="btn btn-brand-primary" id="authButton">Sign In/Register</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Listing Hero Section -->
+        <section class="listing-hero">
+            <div class="container text-center" >
+                <h1 class="listing-heading mb-3">Find Your Dream Holiday</h1>
+            </div>
+        </section>
+
+        <!-- Search and Filter Form -->
+        <section class="container mb-5">
+            <div class="filter-form-container">
+                <h3 class="h4 text-center mb-4" style="color: var(--dark-blue);">Refine Your Search</h3>
+                <form class="row g-3">
+                    <div class="col-md-5">
+                       <label for="Place Type" class="form-label visually-hidden">Place Type</label>
+                            <select class="form-select" id="placeType">
+                                <option value="">All Types</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="Luxury">Luxury</option>
+                                <option value="Culture">Culture</option>
+                                <option value="History">History</option>
+                                <option value="Eco Tour">Eco Tour</option>
+                                <option value="Trending">Trending</option>
+                            </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="duration" class="form-label visually-hidden">Duration</label>
+                        <select class="form-select" id="duration">
+                            <option selected>Duration</option>
+                            <option value="3">3 - 5 Days</option>
+                            <option value="7">6 - 9 Days</option>
+                            <option value="10">10+ Days</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="price" class="form-label visually-hidden">Price Range</label>
+                        <select class="form-select" id="price">
+                            <option selected>Price Range</option>
+                            <option value="500">Under $500</option>
+                            <option value="1500">$500 - $1,500</option>
+                            <option value="3000">Over $1,500</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-brand-primary w-100 h-100 btn-icon">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Tour Listings Grid -->
+        <section class="container py-4">
+            <!-- Dynamic Content Container -->
+            <div id="tour-container" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+                <!-- Content will be injected by JS -->
+            </div>
+            
+            <!-- Dynamic Pagination -->
+            <nav class="mt-5" aria-label="Page navigation">
+                <ul id="pagination-container" class="pagination justify-content-center">
+                    <!-- Pagination will be injected by JS -->
+                </ul>
+            </nav>
+        </section>
+    </main>
+    
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-white mb-3"><i class="bi bi-geo-alt-fill me-2"></i>Tour Travel</h5>
+                    <p>Your journey begins here. We offer the best deals on travel packages worldwide.</p>
+                    <div class="fs-4">
+                        <a href="#" class="text-secondary me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-secondary me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-secondary"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-secondary text-decoration-none">Home</a></li>
+                        <li><a href="About.html" class="text-secondary text-decoration-none">About Us</a></li>
+                        <li><a href="blog.html" class="text-secondary text-decoration-none">Blogs</a></li>
+                        <li><a href="contact.html" class="text-secondary text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h6 class="text-white mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-secondary text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h6 class="text-white mb-3">Contact Info</h6>
+                    <p class="mb-1">Email: support_team@tourtravel.com</p>
+                    <p class="mb-1">Phone: +91 86 9574 6823</p>
+                    <p>Address: Tour Travel, Palakkad, Kerala, India</p>
+                </div>
+            </div>
+            <hr class="text-secondary">
+            <div class="text-center text-secondary pt-3">
+                &copy; 2024 Tour Travel. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOUR DETAILS MODAL STRUCTURE -->
+    <div class="modal fade" id="tourDetailModal" tabindex="-1" aria-labelledby="tourDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-xl shadow-2xl">
+                <div class="modal-header">
+                    <!-- Added ID for title -->
+                    <h5 class="modal-title card-title" id="modalTitle" style="color: var(--dark-blue);">Tour Package Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Static layout with IDs for JS injection -->
+                    <div class="mb-4 text-center">
+                        <img id="modalImage" src="" alt="Tour Image" class="img-fluid rounded-3" style="max-height: 250px; width: 100%; object-fit: cover;">
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-12 col-sm-6">
+                            <p class="text-muted mb-0">
+                                <i class="bi bi-clock me-2" style="color: var(--brand-primary);"></i>
+                                Duration: <strong class="text-dark" id="modalDuration"></strong>
+                            </p>
+                        </div>
+                        <div class="col-12 col-sm-6 text-sm-end">
+                            <p class="h4 card-price mb-0">Price: <span id="modalPrice"></span></p>
+                        </div>
+                    </div>
+                    <hr class="text-muted">
+                    <h6 class="mb-2 fw-bold" style="color: var(--dark-blue);">Trip Overview:</h6>
+                    <p id="modalDescription"></p>
+                    
+                    <div class="d-grid gap-2">
+                         <button class="btn btn-brand-primary mt-3 py-3" onclick="alert('Redirecting to checkout...')">
+                            Book This Holiday Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL STRUCTURE -->
+
+
+    <!-- Bootstrap JS Bundle (required for navbar toggle and modal) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ==========================================
+        // 1. TOUR DATA ARRAY (18 ITEMS)
+        // ==========================================
+        const tours = [
+            // PAGE 1
+            {
+                id: 1,
+                title: "Bali",
+                duration: "6 Days / 5 Nights",
+                price: "$1,250",
+                desc: "Experience seven days of pure bliss in Bali. Includes resort stays, temple tours, and sunrise treks.",
+                image: "https://cdn.sanity.io/images/nxpteyfv/goguides/4171e4f3afda037ee449d25bc6b562ac30f41d18-1600x1066.jpg",
+                badge: "Best Seller"
+            },
+            {
+                id: 2,
+                title: "Romantic Paris Getaway",
+                duration: "4 Days / 3 Nights",
+                price: "$899",
+                desc: " It is the most recognized symbol of Paris and has become an enduring emblem of French culture and ingenuity. ",
+                image: "https://www.worldatlas.com/r/w1200/upload/09/04/49/untitled-design-374.jpg",
+                badge: "New!"
+            },
+            {
+                id: 3,
+                title: "Modern Tokyo & Culture",
+                duration: "9 Days / 8 Nights",
+                price: "$1,950",
+                desc: "Dive deep into Japan's vibrant capital. Explore Shibuya, Asakusa temples, and Mt. Fuji.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJqYQ1ukp6kFXfQvRwecs9HymvMEs35esRDA&s",
+                badge: ""
+            },
+            {
+                id: 4,
+                title: "Moraine Lake",
+                duration: "6 Days / 5 Nights",
+                price: "$1,590",
+                desc: "Moraine Lake, a glacially fed lake in Banff National Park, Alberta, Canada. It is renowned for its vibrant turquoise blue water and the surrounding peaks of the Canadian Rockies. ",
+                image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                badge: "Adventure"
+            },
+            {
+                id: 5,
+                title: "Luxury Mediterranean Cruise",
+                duration: "12 Days / 11 Nights",
+                price: "$3,400",
+                desc: "Sail across the Mediterranean. Visit Rome, Santorini, and Istanbul in luxury.",
+                image: "https://ik.imgkit.net/3vlqs5axxjf/TP/ik-seo/images/99999999-9999-9999-9999-999999999999/7932d5ed-ef70-4a45-81dd-0cef05b0a3b9/source/Rendering-of-Carnival%27s-new-Sunsation-Point-aboard.jpg?tr=w-684%2Cfo-auto",
+                badge: ""
+            },
+            {
+                id: 6,
+                title: "Dubai Desert Safari & City",
+                duration: "5 Days / 4 Nights",
+                price: "$680",
+                desc: "Dune bashing, Bedouin dinners, and Burj Khalifa tours. The perfect mix of sand and city.",
+                image: "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/60000/60510-Dubai.jpg",
+                badge: "Hot Deal"
+            },
+            
+            // PAGE 2
+            {
+                id: 7,
+                title: "Athirapally Waterfalls",
+                duration: "2 Days / 1 Nights",
+                price: "$1,000",
+                desc: "Athirapally Waterfalls is the biggest waterfall in Kerala. It comes down from a height of 80 feet through several parallel streams.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1012dX0LSVoFY8IDib2oc7EBfd81SF_Ojxw&s",
+                badge: "Winter Special"
+            },
+            {
+                id: 8,
+                title: "Tower Bridge",
+                duration: "5 Days / 4 Nights",
+                price: "$4,500",
+                desc: "Tower Bridge, movable bridge of the double-leaf bascule (drawbridge) type that spans the River Thames between the Greater London boroughs of Tower Hamlets and Southwark. It is a distinct landmark that aesthetically complements the Tower of London, which it adjoins.",
+                image: "https://cdn.londonandpartners.com/visit/london-organisations/tower-bridge/86830-640x360-tower-bridge-640.jpg",
+                badge: "Exclusive"
+            },
+            {
+                id: 9,
+                title: "Switzerland Skiing",
+                duration: "5 Days / 4 Nights",
+                price: "$1,350",
+                desc: "Switzerland is practically synonymous with the swish of skis—as the first place in Europe to develop winter tourism, the country's skiing tradition is long and storied. A long ski season, terrific snow conditions, and large, well-developed resort areas make Switzerland a bucket-list destination for skiers from around the world. ",
+                image: "https://www.explore.com/img/gallery/the-best-time-of-year-to-go-skiing-in-switzerland/intro-1673050801.jpg",
+                badge: ""
+            },
+            {
+                id: 10,
+                title: "Alappuzha",
+                duration: "7 Days / 6 Nights",
+                price: "$1,800",
+                desc: "The backwaters are the most popular thing for tourists to see in Alappuzha (Alleppy). Alappuzha has beaches, shrines, and moments.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGM4eKnyQh2nkxjilt_tMrgVSJXfFoiNEZw&s",
+                badge: "Culture"
+            },
+             {
+                id: 11,
+                title: "Soneva Jani",
+                duration: "6 Days / 5 Nights",
+                price: "$3,200",
+                desc: "An iconic overwater sanctuary, Soneva Jani is set within a vast 5.6-kilometre private lagoon in the Maldives’ Noonu Atoll, where infinite shades of blue stretch beyond the horizon. One of the world’s most exclusive and lowest-density luxury resorts, it offers unrivalled space and seclusion across its one- to five-bedroom overwater and island villas.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy77pHIJKZnqSHxgTi7H7lN9j7B8xHcPTReIlAOcxvyTbWOyW5&s",
+                badge: "Luxury"
+            },
+            {
+                id: 12,
+                title: "Thenmala",
+                duration: "8 Days / 7 Nights",
+                price: "$1,600",
+                desc: "Thenmala, located in the Kollam district of Kerala, is India's first planned eco-tourism destination. Nestled in the Western Ghats, this scenic town is renowned for its lush landscapes, diverse flora and fauna, and a range of adventure activities. Thenmala translates to Honey Hill in Malayalam, a name derived from the region's rich honey production. The area's natural beauty and eco-friendly initiatives make Thenmala a perfect getaway for nature lovers and adventure enthusiasts.",
+                image: "https://www.keralatourism.org/images/destination/large/thenmala_eco_tourism20131031121405_41_1.jpg",
+                badge: "Eco Tour"
+            },
+
+            // PAGE 3
+            {
+                id: 13,
+                title: "Phang Nga Bay",
+                duration: "6 Days / 5 Nights",
+                price: "$2,100",
+                desc: "Phang Nga Bay, located in southern Thailand, known for its distinctive limestone cliffs that emerge vertically from the emerald-green water.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRJSm1BURrhfWtYF0A__HKWjjM2D62s0ADhA&s",
+                badge: "Trending"
+            },
+            {
+                id: 14,
+                title: "Sydney Opera House",
+                duration: "7 Days / 6 Nights",
+                price: "$2,500",
+                desc: "Sydney Opera House, an architectural masterpiece and world-class performing arts venue located on Sydney Harbour, Australia. ",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_FsG5s7UIOVvlJCRrtcJslcfL1RkF8GZAYP8qu404y0fCWAPi",
+                badge: ""
+            },
+            {
+                id: 15,
+                title: "Konark Sun Temple",
+                duration: "4 Days / 3 Nights",
+                price: "$1,450",
+                desc: "Konark Sun Temple, a renowned 13th-century Hindu temple located in Konark, Odisha, India. ",
+                image: "https://www.trawell.in/admin/images/upload/028874969Konark_Main.jpg",
+                badge: "History"
+            },
+            {
+                id: 16,
+                title: "Koh Nang Yuan",
+                duration: "5 Days / 4 Nights",
+                price: "$1,100",
+                desc: "Koh Nang Yuan, a small island located near Koh Tao in the Gulf of Thailand. ",
+                image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ36GuOJMuteTBo54XhsulyHyOnoMQ4QXkI6eDZndJvHKrWf5H1",
+            },
+            {
+                id: 17,
+                title: "Grand Canyon Rafting",
+                duration: "4 Days / 3 Nights",
+                price: "$950",
+                desc: "Whitewater rafting down the Colorado River. Camping under the stars in the canyon.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-QBjNFJY0SBF1Kh65N3iHfxY9-CUpsfaSEw&s",
+                badge: "Adventure"
+            },
+            {
+                id: 18,
+                title: "Thailand Island Hopping",
+                duration: "10 Days / 9 Nights",
+                price: "$1,300",
+                desc: "Visit Phuket, Phi Phi, and Krabi. Crystal clear waters, longtail boats, and spicy food.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZcchh4sUK9DNBglkK5r9VPN8ftcCwLrT09A&s",
+                badge: "Value"
+            }
+        ];
+
+        // ==========================================
+        // 2. PAGINATION & RENDER LOGIC
+        // ==========================================
+        let filteredTours = [...tours]
+        const itemsPerPage = 6;
+        let currentPage = 1;
+        const tourContainer = document.getElementById('tour-container');
+        const paginationContainer = document.getElementById('pagination-container');
+
+        function renderTours(page) {
+            tourContainer.innerHTML = "";
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedItems = tours.slice(start, end);
+
+            paginatedItems.forEach(tour => {
+                // Create badge HTML if it exists
+                const badgeHtml = tour.badge ? `<span class="card-badge">${tour.badge}</span>` : '';
+                
+                const tourHtml = `
+                <div class="col animate-fade-in">
+                    <div class="tour-card">
+                        <div class="position-relative">
+                            <img src="${tour.image}" class="card-img-top" alt="${tour.title}">
+                            ${badgeHtml}
+                        </div>
+                        <div class="p-4">
+                            <h5 class="card-title">${tour.title}</h5>
+                            <p class="card-meta mb-2"><i class="bi bi-clock me-1"></i> ${tour.duration}</p>
+                            <p class="text-muted text-truncate">${tour.desc}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="card-price">${tour.price}</span>
+                                <a href="#" 
+                                   class="btn btn-outline-secondary rounded-pill" 
+                                   data-bs-toggle="modal" 
+                                   data-bs-target="#tourDetailModal"
+                                   data-title="${tour.title}"
+                                   data-duration="${tour.duration}"
+                                   data-price="${tour.price}"
+                                   data-description="${tour.desc}"
+                                   data-image="${tour.image}"
+                                >View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                tourContainer.innerHTML += tourHtml;
+            });
+        }
+
+        function renderPagination(page) {
+            paginationContainer.innerHTML = "";
+            const pageCount = Math.ceil(tours.length / itemsPerPage);
+
+            // Previous Button
+            const prevDisabled = page === 1 ? "disabled" : "";
+            paginationContainer.innerHTML += `
+                <li class="page-item ${prevDisabled}">
+                    <a class="page-link" href="#" onclick="changePage(${page - 1})" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>`;
+
+            // Number Buttons
+            for (let i = 1; i <= pageCount; i++) {
+                const activeClass = page === i ? "active" : "";
+                paginationContainer.innerHTML += `
+                    <li class="page-item ${activeClass}">
+                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                    </li>`;
+            }
+
+            // Next Button
+            const nextDisabled = page === pageCount ? "disabled" : "";
+            paginationContainer.innerHTML += `
+                <li class="page-item ${nextDisabled}">
+                    <a class="page-link" href="#" onclick="changePage(${page + 1})" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>`;
+        }
+
+        // The Dynamic Page Changer Function
+        function changePage(page) {
+            const pageCount = Math.ceil(tours.length / itemsPerPage);
+            
+            // Prevent going out of bounds
+            if (page < 1 || page > pageCount) return;
+            
+            currentPage = page;
+            renderTours(currentPage);
+            renderPagination(currentPage);
+            
+            // Smooth scroll back to the top of the search/filter area
+            document.querySelector('.filter-form-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize on Page Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTours(currentPage);
+            renderPagination(currentPage);
+        });
+
+        // ==========================================
+        // 3. MODAL EVENT LISTENER (EFFICIENT)
+        // ==========================================
+        const tourModal = document.getElementById('tourDetailModal');
+        
+        if (tourModal) {
+            tourModal.addEventListener('show.bs.modal', event => {
+                // Button that triggered the modal
+                const button = event.relatedTarget;
+                
+                // Extract info
+                const title = button.getAttribute('data-title');
+                const duration = button.getAttribute('data-duration');
+                const price = button.getAttribute('data-price');
+                const description = button.getAttribute('data-description');
+                const imageSrc = button.getAttribute('data-image');
+                
+                // Update modal content using IDs (Performance Optimized)
+                const modalTitle = tourModal.querySelector('#modalTitle');
+                const modalDuration = tourModal.querySelector('#modalDuration');
+                const modalPrice = tourModal.querySelector('#modalPrice');
+                const modalDescription = tourModal.querySelector('#modalDescription');
+                const modalImage = tourModal.querySelector('#modalImage');
+
+                modalTitle.textContent = title;
+                modalDuration.textContent = duration;
+                modalPrice.textContent = price;
+                modalDescription.textContent = description;
+                modalImage.src = imageSrc;
+            });
+        }
+    </script>
+    <script>
+function updateAuthUI() {
+    const isLoggedIn = localStorage.getItem("userLoggedIn");
+    const authArea = document.getElementById("authArea");
+
+    if (isLoggedIn === "true") {
+        authArea.innerHTML = `
+            <div class="dropdown">
+                <button class="btn btn-brand-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    My Account
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="account.html">Dashboard</a></li>
+                    <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        `;
+
+        // Logout Listener
+        setTimeout(() => {
+            const logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("userLoggedIn");
+                    window.location.reload(); // Refresh page to update UI
+                });
+            }
+        }, 100);
+
+    } else {
+        authArea.innerHTML = `
+            <a href="login.html" class="btn btn-brand-primary" id="authButton">
+                Sign In/Register
+            </a>
+        `;
+    }
+}
+
+// Run on page load
+updateAuthUI();
+</script>
+
+</body>
+</html>

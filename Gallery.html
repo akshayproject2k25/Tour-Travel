@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Travel - Holiday Booking Gallery</title>
+    
+    <!-- Load Bootstrap CSS --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Load Bootstrap Icons --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ======== Variables & Basic Setup ======== */
+        :root {
+            --brand-primary: #ff9900; /* Main orange color */
+            --brand-secondary: #fca311; /* A similar orange for accents */
+            --dark-blue: #0d1b2a; /* Dark text color */
+            --light-gray: #f8f9fa; /* Light background for forms */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        /* ======== Custom Button ======== */
+        .btn-brand-primary {
+            background-color: var(--brand-primary);
+            color: white;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-brand-primary:hover {
+            background-color: #e68a00; /* Darker orange on hover */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ======== Navbar ======== */
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: #000000 !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #555;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            color: var(--brand-primary);
+        }
+
+        /* ======== Hero/Heading Styling ======== */
+        .hero-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--dark-blue);
+        }
+
+        /* ======== Gallery Card Styling ======== */
+        .destination-card {
+            border: none;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .price-text {
+            color: var(--brand-primary);
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        /* Custom rating badge position */
+        .rating-badge {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 5px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+        }
+
+        /* Initial state for hidden cards */
+        .destination-item {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+
+        /* Visible state for cards */
+        .destination-item.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">
+                    <i class="bi bi-geo-alt-fill"></i> Tour Travel
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="About.html">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="List.html">Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Gallery</a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div id="authArea">
+                        <a href="login.html" class="btn btn-brand-primary" id="authButton">Sign In/Register</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content for Gallery -->
+    <main class="container my-5">
+        <section id="gallery" class="py-5">
+            <!-- Section Heading -->
+            <div class="text-center mb-5">
+                <p class="text-uppercase fw-semibold mb-1" style="color: var(--brand-primary); font-size: 1rem;">Recently Added</p>
+                <h2 class="hero-heading">Featured Holiday Villas & Destinations</h2>
+            </div>
+            
+            <!-- Destinations Grid - Added ID for JS access -->
+            <div class="row g-4" id="destination-grid">
+                
+                <!-- Card 1: Effiel Tower -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://www.worldatlas.com/r/w1200/upload/09/04/49/untitled-design-374.jpg" class="card-img-top" alt="Effiel Tower" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Effiel Tower</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> Tower in Paris, France </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Louvre -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/aa/20/d1/the-louvre-originally.jpg?w=1200&h=700&s=1" class="card-img-top" alt="Effiel Tower" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Pyramid Entrance to Louvre </h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> The Louvre, Paris, Franse. </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3: Twer Bridge -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://cdn.londonandpartners.com/visit/london-organisations/tower-bridge/86830-640x360-tower-bridge-640.jpg" class="card-img-top" alt="Tower Bridge" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Tower Bridge</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> London, United Kingdom</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Rome -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk6dtxU6BGQ9A-gGOXLTQaKZ2UVDCfBwIyHw&s" class="card-img-top" alt="Rome" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Rome Capital of Italy </h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> Rome Capital, Lazio </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 5: Sensō-ji -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXB_8KGxeOYqgroq8hObZwvrz1sDAo8KZuvg&s" class="card-img-top" alt="Sensō-ji" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Buddhist Temple </h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> Buddhist Temple, Japan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Statue of Liberty -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnQrIrcc3MdT6Y9B0z7S4wZnBk8go_idSVZw&s" class="card-img-top" alt="Statue of Liberty" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Statue of Liberty</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i>Statue of Liberty, Island, Newyork </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Kenya Wildlife Safari -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="card-img-top" alt="Kenya Wildlife Safari" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Kenya Wildlife Safari</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i>Kenya, East Africa</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 8: Switzerland -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://www.explore.com/img/gallery/the-best-time-of-year-to-go-skiing-in-switzerland/intro-1673050801.jpg" class="card-img-top" alt="Switzerland Skiing" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Switzerland Skiing</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i>Switzerland, Europe</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 9: Taj Mahal -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://hblimg.mmtcdn.com/content/hubble/img/agra/mmt/activities/m_activities-agra-taj-mahal_l_400_640.jpg" class="card-img-top" alt="Taj Mahal" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">TAJ MAHAL</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i>Agra, Northern state of Uttar Pradesh, India</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 10: Great Wall of China -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHL0V67VT1GpcxPIb-83HfYBfxrAUKWQfSlsBuzjVyqkXfLXIAKHy1tusvopLgzsZ6XFs&usqp=CAU" class="card-img-top" alt="Great Wall of China" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Great Wall of China</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> Historical place in Beijing, China</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 11: Athirapally Waterfalls -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1012dX0LSVoFY8IDib2oc7EBfd81SF_Ojxw&s" class="card-img-top" alt="Athirapally Waterfalls" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Athirapally Waterfalls</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i>Thrissur, Kerala, India</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 12: Alappuzha -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGM4eKnyQh2nkxjilt_tMrgVSJXfFoiNEZw&s" class="card-img-top" alt="Alappuha" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Alappuzha</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> Alappuzha, Kerala, India</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Soneva Jani -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy77pHIJKZnqSHxgTi7H7lN9j7B8xHcPTReIlAOcxvyTbWOyW5&s" class="card-img-top" alt="Soneva Jani" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Soneva Jani</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> Medhufaru Island, Manadhoo</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 8: Phang Nga Bay -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRJSm1BURrhfWtYF0A__HKWjjM2D62s0ADhA&s" class="card-img-top" alt="Phang Nga Bay" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Phang Nga Bay</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i>Phang Nga, Thailand</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 9: Konark Sun Temple -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://www.trawell.in/admin/images/upload/028874969Konark_Main.jpg" class="card-img-top" alt="Konark Sun Temple" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);"> Konark Sun Temple </h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1">Hindu Temple in Konark, Odisha, India
+</i> </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10:Grand Canyon Rafting -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-QBjNFJY0SBF1Kh65N3iHfxY9-CUpsfaSEw&s" class="card-img-top" alt="Grand Canyon Rafting" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">TGrand Canyon Rafting</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> Lee's Ferry Scenic spot in Arizona
+</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 11: Thenmala -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://www.keralatourism.org/images/destination/large/thenmala_eco_tourism20131031121405_41_1.jpg" class="card-img-top" alt="Thenmala" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Thenmala</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i> Kollam, Kerala, India</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 12: Dubai Desert Safari -->
+                <div class="col-lg-4 col-md-6 destination-item">
+                    <div class="card destination-card">
+                        <div class="position-relative">
+                            <img src="https://a.travel-assets.com/findyours-php/viewfinder/images/res70/60000/60510-Dubai.jpg" class="card-img-top" alt="Dubai Desert Safari" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d1b2a/ffffff?text=Image+Missing';">
+                            <div class="rating-badge">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" style="color: var(--dark-blue);">Dubai Desert Safari & City</h5>
+                            <p class="card-text text-muted mb-4"><i class="bi bi-geo-alt me-1"></i>Dubai, United Arab Emirates</p>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- New Pagination Controls -->
+            <div class="d-flex justify-content-center align-items-center mt-5" id="pagination-controls">
+                <button class="btn btn-outline-secondary me-3" id="prev-btn" onclick="goToPreviousPage()" disabled>
+                    <i class="bi bi-arrow-left-short"></i> Previous
+                </button>
+                <span id="page-number-display" class="h5 mb-0 fw-bold text-muted">Page 1 of 1</span>
+                <button class="btn btn-brand-primary ms-3" id="next-btn" onclick="goToNextPage()">
+                    Next <i class="bi bi-arrow-right-short"></i>
+                </button>
+            </div>
+            
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 Tour Travel. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Custom Message Box (Replaces alert()) -->
+    <div id="message-box" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); z-index: 100; align-items: center; justify-content: center; padding: 20px;" onclick="this.style.display='none'">
+        <div style="background: white; padding: 30px; border-radius: 12px; max-width: 350px; width: 100%; box-shadow: 0 10px 25px rgba(0,0,0,0.2);" onclick="event.stopPropagation()">
+            <h3 id="message-title" style="font-size: 1.25rem; font-weight: 700; color: #ff9900; margin-bottom: 15px;">Action</h3>
+            <p id="message-content" style="color: #444; margin-bottom: 20px;"></p>
+            <button onclick="document.getElementById('message-box').style.display='none'" class="btn btn-brand-primary">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- Custom Message Box Function ---
+        function showMessage(title, content) {
+            const msgBox = document.getElementById('message-box');
+            document.getElementById('message-title').textContent = title;
+            document.getElementById('message-content').textContent = content;
+            msgBox.style.display = 'flex';
+        }
+
+        // --- Gallery Pagination Logic ---
+        const CARDS_PER_PAGE = 6; // Set cards to show per page
+        let currentPage = 1;
+        let totalPages = 1;
+        let destinationItems = [];
+
+        /**
+         * Initializes the gallery view by calculating pages and showing the first one.
+         */
+        window.onload = function() {
+            // Get all destination items
+            destinationItems = document.querySelectorAll('.destination-item');
+            totalPages = Math.ceil(destinationItems.length / CARDS_PER_PAGE);
+            
+            // Show the initial set of cards
+            showPage(currentPage);
+        };
+
+        /**
+         * Renders the cards for the specified page number.
+         * @param {number} page The page number to display.
+         */
+        function showPage(page) {
+            // Ensure the page number is valid
+            if (page < 1 || page > totalPages) {
+                return;
+            }
+            
+            currentPage = page;
+            const startIndex = (currentPage - 1) * CARDS_PER_PAGE;
+            const endIndex = startIndex + CARDS_PER_PAGE;
+
+            // 1. Hide all cards first
+            destinationItems.forEach(item => {
+                item.classList.remove('visible');
+            });
+            
+            // 2. Show the cards for the current page
+            for (let i = startIndex; i < endIndex && i < destinationItems.length; i++) {
+                // Use a short timeout for the transition effect
+                setTimeout(() => {
+                    destinationItems[i].classList.add('visible');
+                }, (i - startIndex) * 50); // Stagger the appearance
+            }
+
+            // 3. Update the pagination controls
+            updatePaginationControls();
+        }
+
+        /**
+         * Updates the state (disabled/enabled) and text of the pagination controls.
+         */
+        function updatePaginationControls() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const pageDisplay = document.getElementById('page-number-display');
+
+            // Update Page Display
+            pageDisplay.textContent = `Page ${currentPage} of ${totalPages}`;
+
+            // Disable/Enable buttons
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+        }
+
+        /**
+         * Navigates to the next page.
+         */
+        function goToNextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        /**
+         * Navigates to the previous page.
+         */
+        function goToPreviousPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+    </script>
+    
+    <!-- Load Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+function updateAuthUI() {
+    const isLoggedIn = localStorage.getItem("userLoggedIn");
+    const authArea = document.getElementById("authArea");
+
+    if (isLoggedIn === "true") {
+        authArea.innerHTML = `
+            <div class="dropdown">
+                <button class="btn btn-brand-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    My Account
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="account.html">Dashboard</a></li>
+                    <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        `;
+
+        // Logout Listener
+        setTimeout(() => {
+            const logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("userLoggedIn");
+                    window.location.reload(); // Refresh page to update UI
+                });
+            }
+        }, 100);
+
+    } else {
+        authArea.innerHTML = `
+            <a href="login.html" class="btn btn-brand-primary" id="authButton">
+                Sign In/Register
+            </a>
+        `;
+    }
+}
+
+// Run on page load
+updateAuthUI();
+</script>
+
+</body>
+</html>

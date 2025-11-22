@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1.0">
+    <title>Tour Travel - Blog & Insights</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        /* Import Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        /* ======== Variables & Basic Setup ======== */
+        :root {
+            --brand-primary: #ff9900; /* Main orange color */
+            --brand-secondary: #fca311; /* A similar orange for accents */
+            --dark-blue: #0d1b2a; /* Dark text color */
+            --light-gray: #f8f9fa; /* Light background for forms/sidebar */
+            --brand-teal: #004d40; /* New teal color for the hero banner */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        /* ======== Custom Button ======== */
+        .btn-brand-primary {
+            background-color: var(--brand-primary);
+            color: white;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-brand-primary:hover {
+            background-color: #e68a00; /* Darker orange on hover */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ======== Navbar ======== */
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: #000000 !important; 
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #555;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link.active,
+
+        .nav-link:hover {
+            color: var(--brand-primary);
+        }
+        
+        /* ------------------- Hero Banner Section ------------------- */
+        .hero-banner {
+            height: 400px;
+            background : url("https://media.oars.com/wp-content/uploads/2022/08/21025933/Josh-Miller-Gerand-Canyon-29_web.jpg");
+            background-color: var(--brand-teal); /* Solid teal background */
+            background-size: cover;
+            background-position: center center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+        
+        /* Blog Hero Text */
+        .gallery-text { 
+            position: relative; 
+            color: white; 
+            text-align: center;
+            z-index: 20;
+            padding: 0 20px;
+        }
+
+        .gallery-text h2 {
+            font-size: 3em; 
+            margin-bottom: 5px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-text p {
+            font-size: 1.1em;
+            font-weight: 400;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ------------------- Blog Listing Styles ------------------- */
+        .blog-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: block;
+            color: #333;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            color: #333;
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--brand-primary);
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        
+        .blog-content h4 {
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .blog-meta .tag {
+            color: var(--brand-primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        /* Pagination Styling */
+        .page-link {
+            color: var(--dark-blue);
+            border-color: #dee2e6;
+            transition: all 0.2s;
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--brand-primary);
+            border-color: var(--brand-primary);
+            color: white;
+        }
+
+        .page-link:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 153, 0, 0.25);
+        }
+        
+        /* Sidebar styles */
+        .sidebar-widget {
+            padding: 25px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-widget h5 {
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--brand-primary);
+            padding-bottom: 8px;
+        }
+
+        .sidebar-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #ced4da;
+        }
+
+        .sidebar-list li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-list a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .sidebar-list a:hover {
+            color: var(--brand-primary);
+        }
+
+
+        /* Mobile specific adjustments */
+        @media (max-width: 768px) {
+            .hero-banner {
+                height: 300px;
+            }
+            .gallery-text h2 {
+                font-size: 2.2em; 
+            }
+            .gallery-text p {
+                font-size: 1em;
+            }
+            .blog-content {
+                padding: 20px;
+            }
+            .sidebar-widget {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">
+                    <i class="bi bi-geo-alt-fill"></i> Tour Travel
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="About.html">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="List.html">Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gallery.html">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div id="authArea">
+                        <a href="login.html" class="btn btn-brand-primary" id="authButton">Sign In/Register</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="hero-banner">
+            <div class="gallery-text">
+                <h2>TOUR TRAVEL BLOG & STORIES</h2>
+                <p>Inspiring articles, travel tips, and destination guides from our experts</p>
+            </div>
+            <div class="floating-image" role="img" aria-label="Woman holding a parasol in front of a landmark."></div>
+        </section>
+
+        <!-- New Blog Section Layout -->
+        <section class="blog-section py-5">
+            <div class="container">
+                <div class="row">
+                    
+                    <!-- Main Blog Content (8 columns on large screens) -->
+                    <div class="col-lg-8 mb-5 mb-lg-0">
+                        
+                        <!-- Dynamic Blog Cards Container - Content will be injected here -->
+                        <div id="blog-cards-container">
+                            <!-- Posts go here -->
+                        </div>
+
+                        <!-- Dynamic Pagination Container -->
+                        <nav aria-label="Blog pagination">
+                            <ul class="pagination justify-content-center" id="pagination-container">
+                                <!-- Pagination links go here -->
+                            </ul>
+                        </nav>
+
+                    </div>
+                    
+                    <!-- Sidebar (4 columns on large screens) -->
+                    <div class="col-lg-4">
+                        
+                        <!-- Search Widget -->
+                        <div class="sidebar-widget">
+                            <h5>Search Blog</h5>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search articles..." aria-label="Search articles">
+                                <button class="btn btn-brand-primary" type="button"><i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Categories Widget -->
+                        <div class="sidebar-widget">
+                            <h5>Categories</h5>
+                            <ul class="sidebar-list">
+                                <li><a href="#">Adventure Travel (14)</a></li>
+                                <li><a href="#">Solo Trips (8)</a></li>
+                                <li><a href="#">Budget Hacks (21)</a></li>
+                                <li><a href="#">Culture & History (19)</a></li>
+                                <li><a href="#">Family Holidays (5)</a></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Recent Posts Widget -->
+                        <div class="sidebar-widget">
+                            <h5>Recent Posts</h5>
+                            <ul class="sidebar-list">
+                                <li><a href="#">Top 5 Hiking Trails in the Dolomites</a></li>
+                                <li><a href="#">How to Pack for a Two-Week Trip in a Carry-On</a></li>
+                                <li><a href="#">Hidden Beaches of the Mediterranean Coast</a></li>
+                                <li><a href="#">Must-See Museums in Paris Beyond the Louvre</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 Tour Travel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle (REQUIRED for navbar toggler and dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Dynamic Pagination Logic -->
+    <script>
+        // --- Mock Blog Data ---
+        const allPosts = [
+            { author: 'Jane Doe', tag: 'Adventure', date: 'October 10, 2025', title: '10 Unexpected Travel Hacks That Will Save Your Trip', summary: 'Discover genius packing tricks and booking secrets that professional travelers use to make their journeys smoother and more affordable. Time to stop overpaying and start exploring smarter...', imageSeed: 'blog1' },
+            { author: 'Mark Smith', tag: 'Destinations', date: 'September 25, 2025', title: 'The Ultimate Guide to Planning a Digital Detox Holiday in Southeast Asia', summary: 'Escape the screen and reconnect with nature. We break down the best remote islands and serene retreats in Thailand, Indonesia, and Vietnam perfect for true relaxation...', imageSeed: 'blog2' },
+            { author: 'Chef Leo', tag: 'Food & Culture', date: 'September 1, 2025', title: 'A Culinary Journey: Tasting the Best Street Food in Mexico City', summary: 'From spicy tacos al pastor to sweet churros, dive into the vibrant street food scene of Mexico City. We\'ve mapped out the must-try stalls for every serious foodie...', imageSeed: 'blog3' },
+            
+            // --- Page 2 Posts ---
+            { author: 'Sarah Lee', tag: 'Budget Hacks', date: 'August 15, 2025', title: 'Travel on $50 a Day: Exploring Eastern Europe Affordably', summary: 'The secret is out! We share our step-by-step guide to backpacking through countries like Poland, Hungary, and Romania without breaking the bank. Free walking tours are your friend.', imageSeed: 'blog4' },
+            { author: 'Tom Cruise', tag: 'Solo Trips', date: 'July 28, 2025', title: 'Finding Inner Peace: A Month-Long Trek in the Himalayas', summary: 'My personal journey navigating the difficult yet rewarding paths of Nepal. Learn how to prepare mentally and physically for high-altitude solo trekking and what to pack.', imageSeed: 'blog5' },
+            { author: 'Mia Wong', tag: 'Culture & History', date: 'July 10, 2025', title: 'The Lost History of Machu Picchu: Beyond the Tourist Path', summary: 'A deep dive into the engineering, societal structure, and mysterious abandonment of the Inca citadel. Discover hidden trails and overlooked viewpoints with stunning insight.', imageSeed: 'blog6' },
+            
+            // --- Page 3 Posts ---
+            { author: 'David Chen', tag: 'Adventure', date: 'June 20, 2025', title: 'Deep Sea Diving 101: Certification and First Dives', summary: 'Everything you need to know to get PADI certified and explore the underwater world. Tips on choosing a dive center and the best spots for beginners in the Caribbean.', imageSeed: 'blog7' },
+            { author: 'Elena Diaz', tag: 'Family Holidays', date: 'May 5, 2025', title: 'Kid-Friendly Europe: Paris and Rome without the Stress', summary: 'Traveling with toddlers? It\'s possible! We share itineraries, tips for museum visits, and the best parks and playgrounds to keep the whole family happy and engaged.', imageSeed: 'blog8' },
+            { author: 'Gabe Bell', tag: 'Destinations', date: 'April 1, 2025', title: 'Why Iceland is the Best Place for Late Winter Travel', summary: 'Forget the summer crowds. Late winter in Iceland offers cheap flights, spectacular Northern Lights views, and fewer tourists. Here\'s your perfect 7-day itinerary.', imageSeed: 'blog9' },
+
+             // --- Page 4 Posts ---
+            { author: 'Nina Jones', tag: 'Budget Hacks', date: 'March 15, 2025', title: 'Mastering the Art of Hostel Cooking for Long-Term Travel', summary: 'Eating out is expensive! Learn how to maximize hostel kitchen space, share ingredients, and cook delicious, healthy meals on a tight budget while traveling the world.', imageSeed: 'blog10' },
+        ];
+
+        const postsPerPage = 3;
+        let currentPage = 1;
+
+        const blogContainer = document.getElementById('blog-cards-container');
+        const paginationContainer = document.getElementById('pagination-container');
+
+        // Function to create the HTML for a single blog card
+        function createBlogCard(post) {
+            // Using picsum.photos for realistic, unique placeholder images based on imageSeed
+            const imageUrl = `https://picsum.photos/seed/${post.imageSeed}/800/250`;
+            const fallbackUrl = `https://placehold.co/800x250/ced4da/6c757d?text=Image+Error`;
+            
+            return `
+                <a href="#" class="blog-card">
+                    <img src="${imageUrl}" onerror="this.onerror=null;this.src='${fallbackUrl}';" alt="${post.title}">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            By <span class="fw-bold">${post.author}</span> | <span class="tag">${post.tag}</span> | ${post.date}
+                        </div>
+                        <h4>${post.title}</h4>
+                        <p class="mb-0">${post.summary}</p>
+                    </div>
+                </a>
+            `;
+        }
+
+        // Function to render the blog posts for the current page
+        function renderBlogCards(page) {
+            const startIndex = (page - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            const postsToShow = allPosts.slice(startIndex, endIndex);
+
+            let htmlContent = '';
+            postsToShow.forEach(post => {
+                htmlContent += createBlogCard(post);
+            });
+
+            blogContainer.innerHTML = htmlContent;
+            // Scroll to the top of the container when content changes
+            blogContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Function to render the pagination links
+        function renderPagination(page) {
+            const totalPages = Math.ceil(allPosts.length / postsPerPage);
+            let paginationHtml = '';
+
+            // Previous button
+            paginationHtml += `
+                <li class="page-item ${page === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${page - 1}" aria-label="Previous">Previous</a>
+                </li>
+            `;
+
+            // Numbered pages
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHtml += `
+                    <li class="page-item ${i === page ? 'active' : ''}">
+                        <a class="page-link" href="#" data-page="${i}">${i}</a>
+                    </li>
+                `;
+            }
+
+            // Next button
+            paginationHtml += `
+                <li class="page-item ${page === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${page + 1}" aria-label="Next">Next</a>
+                </li>
+            `;
+
+            paginationContainer.innerHTML = paginationHtml;
+            attachPaginationListeners();
+        }
+
+        // Function to attach click listeners to the dynamically created pagination buttons
+        function attachPaginationListeners() {
+            const links = paginationContainer.querySelectorAll('.page-link');
+            links.forEach(link => {
+                // Ensure no listener is attached to disabled links
+                if (link.parentElement.classList.contains('disabled')) return;
+
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    
+                    const newPage = parseInt(this.getAttribute('data-page'));
+                    const totalPages = Math.ceil(allPosts.length / postsPerPage);
+
+                    // Check if the new page is valid
+                    if (newPage >= 1 && newPage <= totalPages) {
+                        currentPage = newPage;
+                        // Re-render both the content and the pagination
+                        renderBlogCards(currentPage);
+                        renderPagination(currentPage);
+                    }
+                });
+            });
+        }
+
+        // Initial rendering when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBlogCards(currentPage);
+            renderPagination(currentPage);
+        });
+
+    </script>
+    <script>
+function updateAuthUI() {
+    const isLoggedIn = localStorage.getItem("userLoggedIn");
+    const authArea = document.getElementById("authArea");
+
+    if (isLoggedIn === "true") {
+        authArea.innerHTML = `
+            <div class="dropdown">
+                <button class="btn btn-brand-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    My Account
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="account.html">Dashboard</a></li>
+                    <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        `;
+
+        // Logout Listener
+        setTimeout(() => {
+            const logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("userLoggedIn");
+                    window.location.reload(); // Refresh page to update UI
+                });
+            }
+        }, 100);
+
+    } else {
+        authArea.innerHTML = `
+            <a href="login.html" class="btn btn-brand-primary" id="authButton">
+                Sign In/Register
+            </a>
+        `;
+    }
+}
+
+// Run on page load
+updateAuthUI();
+</script>
+</body>
+</html>
